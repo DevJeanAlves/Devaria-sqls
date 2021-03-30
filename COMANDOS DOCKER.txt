@@ -1,0 +1,56 @@
+docker pull mcr.microsoft.com/mssql/server:2019-latest
+
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Jean2021" -p 1433:1433 --name CandiesOrg -h CandiesOrg -d mcr.microsoft.com/mssql/server:2019-latest
+
+
+
+CREATE TABLE Cliente
+(
+ Codigo INT Identity(1,1), --primary key
+ Nome VARCHAR(50)NOT NULL,
+ CPF CHAR(11)NULL,
+ Celular CHAR(11)NULL,
+ TELEFONE CHAR(10)NULL,
+ Email VARCHAR(100)NULL,
+ Lugadouro VARCHAR(50)NULL,
+ CEP CHAR(8)NULL,
+ Cidade VARCHAR(50)NULL,
+ Estado CHAR(2)NULL,
+ CONSTRAINT Nome PRIMARY KEY (Codigo)
+)
+
+
+
+CREATE TABLE Fidelidade
+(
+    Codigo_Cliente INT,
+    Data_Adesao DATETIME NOT NULL,
+    Pontos INT NULL,
+    CONSTRAINT PK_Codigo_Cliente_Fidelidade PRIMARY KEY (Codigo_Cliente),
+    CONSTRAINT FK_Cliente_Fidelidade FOREIGN KEY (Codigo_Cliente) REFERENCES Cliente(Codigo)
+)
+
+
+CREATE TABLE Cliente
+
+(
+ Codigo INT Identity(1,1), --primary key
+ Nome VARCHAR(50)NOT NULL,
+ CPF CHAR(11)NULL,
+ Celular CHAR(11)NULL,
+ TELEFONE CHAR(10)NULL,
+ Email VARCHAR(100)NULL,
+ Lugadouro VARCHAR(50)NULL,
+ CEP CHAR(8)NULL,
+ Cidade VARCHAR(50)NULL,
+ Estado CHAR(2)NULL,
+ CONSTRAINT PK_ClienteCodigo PRIMARY KEY (Codigo)
+)
+BEGIN TRANSACTION
+
+drop table Fidelidade
+
+
+
+COMMIT
+--ROLLBACK

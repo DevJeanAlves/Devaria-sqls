@@ -1,0 +1,218 @@
+Lista de comandos para caixa de comandos da DB
+
+Criar Database
+CREATE DATABASE NomeDaDataBase
+
+Comandos de boas praticas
+
+BEGIN TRANSACTION   //no inicio
+
+CONMIT              //no final
+ROLLBACK            //no final
+"--" para comentar     ex: --comentario
+ 
+Criar Tabela:
+
+CREATE TABLE Nome_Tabela
+(
+ Campo_Chave Tipo,
+ Nome_Campo Tipo,
+ Nome_Campo tipo,
+ CONSTRAINT Nome PRIMARY KEY (Campo_Chave)
+ CONSTRAINT Nome FOREIGN KEY (Nome_Campo)
+      REFERENCES Tabela(Campo_chave)
+)
+
+O COMANDO Identity possibilita criar um codigo auto incrementavel
+
+exemplo 
+
+Codigo INT Identity(1,1),    o (1,1) significa que ira gerar codigos crescente de 1 pra 1 exemplo 1, 2, 3, 4 ...
+
+
+
+
+ficando assim
+
+BEGIN TRANSACTION
+
+
+CREATE TABLE Cliente
+
+(
+ Codigo INT Identity(1,1), --primary key
+ Nome VARCHAR(50)NOT NULL,
+ CPF CHAR(11)NULL,
+ Celular CHAR(11)NULL,
+ TELEFONE CHAR(10)NULL,
+ Email VARCHAR(100)NULL,
+ Lugadouro VARCHAR(50)NULL,
+ CEP CHAR(8)NULL,
+ Cidade VARCHAR(50)NULL,
+ Estado CHAR(2)NULL,
+ CONSTRAINT Nome PRIMARY KEY (Codigo)
+)
+
+--COMMIT
+--ROLLBACK
+--DROP TABLE nome da tabela
+
+
+---add coluna:
+ALTER TABLE Nome_Tabela
+ADD Nome_Campo Tipo;
+
+---Excluir tabela:
+ALTER TABLE Nome_Tabela
+DROP COLUMN Nome_Campo
+
+---Alterar Coluna:
+ALTER TABLE Nome_Tabela
+ALTER COLUMN Nome_Campo datatype;      // em alguns sql MODIFY no lugar do ALTER
+
+---Exluir Tabela:
+DROP TABLE Nome_Tabela
+
+--Mostrar tabela--------------------------------------------
+SELECT * FROM Tabela
+
+ou 
+
+SELECT
+   Nome_Campo1,       // CASO PALAVRA RESERVADA UTILIZA ENTRE COLCHETES "[]".
+   Nome_Campo2, ...
+FROM
+   Nome_Tabela
+
+---INSERT INTO (INSERIR DENTRO)--------------------------------
+
+INSERT INTO Nome_Tabela
+     (Nome_Campo1, Nome_Campo2, Nome_Campo3, ...)
+VALUES
+    (Valor1, Valor2, Valor3, ...)
+
+---UPDATE(para modificar tabelas "atualizar")------------------
+sintaxe:
+ 
+     UPDATE
+      Nome_Tabela
+     SET
+      Nome_Coluna
+     WHERE
+     Primary_Key and mais especificaçao
+
+
+exemplo:
+UPDATE
+ Cliente
+SET
+ NOME = Jade Fernanda
+WHERE
+Codigo = 4 and CPF = 12312312312
+
+---(SELEÇÃO)------------------------------------
+SELECT/ ORDER BY/ DISTINCT/ TOP
+
+SINTAXE:
+
+
+SELECT Distinct e Top
+     Nome_Campo1,
+     Nome_Campo2, ...
+FROM
+   Nome_Tabela
+WHERE
+   Condição(and, or e not)
+ORDER BY
+    Nome_Campo1, Nome_Campo2 DESC/ASC
+
+
+*--DISTINCT     ///Usado para mostrar a seleção de itens unicos, excluindo repetiçoes, traz os nomes(itens) diferentes, unicos.
+SELECT Distinct
+     Nome_Campo
+FROM
+    Nome_Tabela
+
+*--TOP      ///Traz somento os valores do top
+SELECT
+      TOP(VALOR)* ou Nome da coluna
+FROM
+     Nome_Tabela
+
+*--WHERE / LIKE------------------------------------
+SELECT
+     *
+FROM
+    Clientes
+WHERE
+    Nome Like(parecido) 'Jade' and
+CPF 1231231232
+
+exemplo 
+	Nome Like '%jade'
+
+==============================
+usamos a "%" antes ou depois ou nas duas extremidades da palavra que queremos encontrar
+
+%jade = encontra tudo com as mesmas iniciais
+jade% = encontra tudo com o mesmo final
+
+%jade% = encontra tudo com o mesmo meio
+==============================
+
+---NOT/IN-------------------------------------------------
+SENTAXE
+
+SELECT
+     *
+FROM
+    Client
+Where
+Codigo NOT IN (1)    nao tenha/esteja em  1
+
+ou
+
+Where
+Codigo IN (1)        tenha/esteja em 1
+
+ou
+
+Where
+Codigo IN (1,2)        tenha/esteja em 1 e 2
+
+ou 
+
+ou
+
+Where
+Codigo IN ('Nome')        tenha/esteja Nome
+
+*---ORDER BY------ASC(acendente)---DES(decrescente)------
+SELECT
+     *
+FROM
+    Cliente
+ORDER BY
+Nome DESC
+
+ou
+
+ORDER BY
+Nome ASC
+
+ou composto
+
+ORDER BY
+Nome DESC and
+Codigo ASC
+
+ou pra descobrir o ultimo dado
+
+SELECT
+     TOP(1)
+FROM
+    Cliente
+ORDER BY
+Nome DESC
+
+

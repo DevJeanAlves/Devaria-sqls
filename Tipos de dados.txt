@@ -1,0 +1,5 @@
+INT
+DECIMAL        ex DECIMAL(1,1) 
+char         
+VARCHAR
+DATETIME
